@@ -76,15 +76,36 @@ class App extends React.Component {
         onViewChange={this._func}
         customPopupHtml={this._html_func} />*/
       render() {
+        const styles = {
+            "list": {
+                fontSize: 14,
+                color: "#555",
+                paddingLeft: 5,
+                borderBottom: "2px solid #F3F3F3",
+                height: 35.5,
+                lineHeight: "35.5px"
+            }
+        }
+        console.log(this.state.tasks)
         return (
                 <div className='parent'>
                   <label> ReactGantt Component<br/>View Mode: <b>{this.state.viewMode}</b> </label>
                   - <button onClick={this.setupViewMode.bind(this)}>Change View Mode</button><br/>
-                  <div style={{overflow: 'scroll'}}>
-                    <ReactGantt tasks={this.state.tasks}
-                                viewMode={this.state.viewMode}
-                                customPopupHtml={this.customPopupHtml} />
-                  </div>
+                    <div style={{overflow: 'scroll', float: "left", width: "30%", borderRight: "2px solid #e9e9e9"}}>
+                        <div style={{height: 58, borderTop: "1px solid #e9e9e9", borderBottom: "2px solid #e9e9e9"}}>Task | Start Date | End Date</div>
+                        <ul style={{margin: 0, listStyleType: "none", padding: "0px"}}>
+                            {this.state.tasks.map((task, i) =>
+                                <li key={i}
+                                    style={{...styles.list, backgroundColor: ((i % 2) === 0 ? "#FFF" : "#F5F5F5")} }>
+                                    {task.id} - {task.name}</li>
+                            )}
+                        </ul>
+                    </div>
+                      <div style={{overflow: 'scroll', float: "left", width: "69%"}}>
+                        <ReactGantt tasks={this.state.tasks}
+                                    viewMode={this.state.viewMode}
+                                    customPopupHtml={this.customPopupHtml} />
+                      </div>
                 </div>)
       }
 }
